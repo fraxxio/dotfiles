@@ -110,6 +110,7 @@
       kdePackages.kate
     #  thunderbird
     ];
+    shell = pkgs.zsh;
   };
 
   programs.gamemode.enable = true;
@@ -121,6 +122,16 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     gamescopeSession.enable = true;
   };
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+    shellAliases = {
+        tmx = "/home/fraxx/dotfiles/scripts/tmux-sessions.sh";
+        nixcfg = "sudo -E nvim /etc/nixos/configuration.nix";
+        lg = "lazygit";
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -128,30 +139,32 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  neofetch
-  btop
-  chromium
-  gimp
-  libreoffice
-  discord
-  tmux
-  mangohud
-  protonup
-  xorg.xf86videoamdgpu
-  nodejs_22
-  git
-  gcc
-  curl
-  wget
-  unzip
-  gnutar
-  gzip
-  neovim
-  vimPlugins.lazy-nvim
-  wl-clipboard
-  kitty
-  fzf
-  gh
+    neofetch
+    btop
+    chromium
+    gimp
+    libreoffice
+    discord
+    tmux
+    mangohud
+    protonup
+    xorg.xf86videoamdgpu
+    nodejs_22
+    git
+    gcc
+    curl
+    wget
+    unzip
+    gnutar
+    gzip
+    neovim
+    vimPlugins.lazy-nvim
+    wl-clipboard
+    kitty
+    fzf
+    gh
+    lazygit
+    zsh
   ];
 
   environment.sessionVariables = {
@@ -159,9 +172,6 @@
       "\${HOME}/.steam/root/compatibilitytools.d";
   };
 
-  environment.shellAliases = {
-    nixcfg = "sudo -E nvim /etc/nixos/configuration.nix";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
