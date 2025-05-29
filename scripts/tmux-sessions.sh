@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-PROJECTS=(
-  "$HOME/dotfiles"
-)
+# Auto-discover project directories
+PROJECT_ROOT="$HOME/Repositories"
+PROJECTS=($(find "$PROJECT_ROOT" -mindepth 1 -maxdepth 1 -type d | sort))
 
 # Ensure tmux server is running
 tmux start-server
