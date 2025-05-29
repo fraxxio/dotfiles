@@ -165,6 +165,7 @@
     gh
     lazygit
     zsh
+    chatterino2
   ];
 
   environment.sessionVariables = {
