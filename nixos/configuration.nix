@@ -166,6 +166,7 @@
     lazygit
     zsh
     chatterino2
+    kdePackages.kdenlive
   ];
 
   environment.sessionVariables = {

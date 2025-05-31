@@ -1,2 +1,4 @@
 export TERM=xterm-256color
-# Created by newuser for 5.9
+
+alias tmx=/home/fraxx/Repositories/dotfiles/scripts/tmux-sessions.sh
+
