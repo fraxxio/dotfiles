@@ -27,7 +27,7 @@ tmux new-session -d -s "$session_name" -c "$selected_project"
 
 # Set up Neovim in the first window (Window 0)
 tmux rename-window -t "$session_name:0" "nvim"
-tmux send-keys -t "$session_name:0" "nvim" C-m
+tmux send-keys -t "$session_name:0" "nvim ." C-m
 
 # Create a second window (Window 1) for npm run dev
 tmux new-window -t "$session_name:1" -c "$selected_project" -n "dev"
