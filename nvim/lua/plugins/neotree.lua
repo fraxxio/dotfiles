@@ -46,17 +46,29 @@ return {
 	  require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd() })
 	end, { desc = "Toggle NeoTree" })
 
-	-- Focus Neo-tree (open if needed, then jump into it)
-	vim.keymap.set("n", "<leader>fe", function()
-	  require("neo-tree.command").execute({ toggle = false, reveal = true, dir = vim.loop.cwd(), focus = true })
-	end, { desc = "Focus NeoTree" })
-
-	-- Unfocus Neo-tree (jump to previous window)
-	vim.keymap.set("n", "<leader>uf", "<C-w>p", { desc = "Unfocus NeoTree (go to previous window)" })
-	
 	vim.keymap.set("n", "<leader>gs", function()
 	  require("neo-tree.command").execute({ source = "git_status", toggle = true })
 	end, { desc = "Toggle NeoTree Git Status" })
     end,
+
+  vim.keymap.set("n", "<leader>fe", function()
+    local winid = vim.api.nvim_get_current_win()
+    local current_buf = vim.api.nvim_get_current_buf()
+    local bufname = vim.api.nvim_buf_get_name(current_buf)
+
+    -- Check if the current window is Neo-tree
+    if bufname:match("neo%-tree") then
+      -- Neo-tree is focused: jump to previous window
+      vim.cmd("wincmd p")
+    else
+      -- Not in Neo-tree: open/focus Neo-tree
+      require("neo-tree.command").execute({
+        toggle = false,
+        reveal = true,
+        dir = vim.loop.cwd(),
+        focus = true,
+      })
+    end
+  end, { desc = "Toggle Focus on NeoTree" })
   },
 }
