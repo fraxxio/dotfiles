@@ -75,7 +75,7 @@
   nix.settings.experimental-features = [ "nix-command" ];
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -96,7 +96,7 @@
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "Hack" ]; })
+      pkgs.nerd-fonts.hack
     ];
   };
 
@@ -167,6 +167,18 @@
     zsh
     chatterino2
     kdePackages.kdenlive
+    luajitPackages.luarocks_bootstrap
+    ripgrep
+    gcc
+    gnumake
+    # --- LSP ---
+    lua-language-server
+    nodePackages.typescript-language-server
+    tailwindcss-language-server
+    emmet-ls
+    svelte-language-server
+    vscode-langservers-extracted
+    # --- LSP ---
   ];
 
   environment.sessionVariables = {
