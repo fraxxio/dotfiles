@@ -4,8 +4,8 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
-    { "folke/neodev.nvim", opts = {} },
-    { "pmizio/typescript-tools.nvim", dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } },
+    { "folke/neodev.nvim",                   opts = {} },
+    { "pmizio/typescript-tools.nvim",        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } },
   },
   config = function()
     local lspconfig = require("lspconfig")
@@ -19,6 +19,11 @@ return {
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf, silent = true }
 
+        opts.desc = "Format buffer"
+        keymap.set("n", "<leader>f", function()
+          vim.lsp.buf.format({ async = true })
+        end, opts)
+
         opts.desc = "Show LSP references"
         keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
@@ -26,7 +31,7 @@ return {
         keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
 
         opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+        keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)     -- show lsp definitions
 
         keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
@@ -87,49 +92,49 @@ return {
     })
 
     local servers = {
-        -- TypeScript handled by typescript-tools instead of tsserver directly
-        ts_ls = function()
-          require("typescript-tools").setup({
-            server = { capabilities = capabilities },
+      -- TypeScript handled by typescript-tools instead of tsserver directly
+      ts_ls = function()
+        require("typescript-tools").setup({
+          server = { capabilities = capabilities },
+        })
+      end,
+
+      -- HTML, CSS, Tailwind, and Svelte use lspconfig directly
+      html = {},
+      cssls = {},
+      tailwindcss = {},
+      svelte = {
+        on_attach = function(client)
+          vim.api.nvim_create_autocmd("BufWritePost", {
+            pattern = { "*.js", "*.ts" },
+            callback = function(ctx)
+              client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+            end,
           })
         end,
+      },
 
-        -- HTML, CSS, Tailwind, and Svelte use lspconfig directly
-        html = {},
-        cssls = {},
-        tailwindcss = {},
-        svelte = {
-          on_attach = function(client)
-            vim.api.nvim_create_autocmd("BufWritePost", {
-              pattern = { "*.js", "*.ts" },
-              callback = function(ctx)
-                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-              end,
-            })
-          end,
-        },
-
-        -- Lua language server uses NixOS-provided binary
-        lua_ls = {
-          cmd = { vim.fn.exepath("lua-language-server") },  -- use NixOS lua-language-server
-          settings = {
-            Lua = {
-              diagnostics = { globals = { "vim" } },
-              completion = { callSnippet = "Replace" },
-            },
+      -- Lua language server uses NixOS-provided binary
+      lua_ls = {
+        cmd = { vim.fn.exepath("lua-language-server") },   -- use NixOS lua-language-server
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            completion = { callSnippet = "Replace" },
           },
         },
-      }
+      },
+    }
 
-      -- Loop through and setup each server
-      for name, cfg in pairs(servers) do
-        if type(cfg) == "function" then
-          -- custom setup
-          cfg()
-        else
-          cfg.capabilities = capabilities
-          lspconfig[name].setup(cfg)
-        end
+    -- Loop through and setup each server
+    for name, cfg in pairs(servers) do
+      if type(cfg) == "function" then
+        -- custom setup
+        cfg()
+      else
+        cfg.capabilities = capabilities
+        lspconfig[name].setup(cfg)
       end
+    end
   end,
 }
