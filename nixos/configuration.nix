@@ -174,6 +174,7 @@
     # --- LSP ---
     lua-language-server
     nodePackages.typescript-language-server
+    nodePackages.typescript
     tailwindcss-language-server
     emmet-ls
     svelte-language-server
