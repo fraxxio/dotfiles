@@ -17,7 +17,7 @@ return {
         sources = { "filesystem" },
         window = {
           position = "right",
-          width    = 30,
+          width    = 50,
           mappings = {
             l     = "open",
             h     = "close_node",

@@ -116,7 +116,7 @@ return {
 
       -- Lua language server uses NixOS-provided binary
       lua_ls = {
-        cmd = { vim.fn.exepath("lua-language-server") },   -- use NixOS lua-language-server
+        cmd = { vim.fn.exepath("lua-language-server") }, -- use NixOS lua-language-server
         settings = {
           Lua = {
             diagnostics = { globals = { "vim" } },
