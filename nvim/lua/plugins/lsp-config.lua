@@ -75,11 +75,16 @@ return {
     })
 
     local servers = {
-      ts_ls = function()
-        require("typescript-tools").setup({
-          server = { capabilities = capabilities },
-        })
-      end,
+      ts_ls = {
+        capabilities = capabilities,
+        on_attach = function(client)
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+        settings = {
+          typescript = { suggest = { completeFunctionCalls = true } },
+          javascript = { suggest = { completeFunctionCalls = true } },
+        },
+      },
 
       html = {},
       cssls = {},

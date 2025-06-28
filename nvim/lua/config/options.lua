@@ -12,3 +12,7 @@ vim.wo.relativenumber = true
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>gq", function()
+  vim.lsp.buf.code_action()
+end, { desc = "TS: Show Code Actions (auto-imports etc.)" })
+
