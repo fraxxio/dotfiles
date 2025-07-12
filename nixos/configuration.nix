@@ -171,6 +171,7 @@
     ripgrep
     gcc
     gnumake
+    brave
     # --- LSP ---
     lua-language-server
     nodePackages.typescript-language-server
