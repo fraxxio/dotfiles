@@ -172,6 +172,7 @@
     gcc
     gnumake
     brave
+    docker_28
     # --- LSP ---
     lua-language-server
     nodePackages.typescript-language-server

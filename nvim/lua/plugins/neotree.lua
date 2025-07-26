@@ -13,14 +13,19 @@ return {
         filesystem = {
           hijack_netrw_behavior = "disabled",
           hijack_netrw = true,
+          filtered_items = {
+            visible = true,
+            hide_dotfiles = false,
+            hide_gitignored = false,
+          },
         },
         sources = { "filesystem" },
         window = {
           position = "right",
           width    = 50,
           mappings = {
-            l     = "open",
-            h     = "close_node",
+            l        = "open",
+            h        = "close_node",
             ["<cr>"] = "open",
           },
         },
