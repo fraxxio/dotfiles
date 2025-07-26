@@ -58,6 +58,15 @@
     variant = "";
   };
 
+  virtualisation.docker = {
+    enable = false;  # Disable the system-wide Docker daemon
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -105,7 +114,7 @@
   users.users.fraxx = {
     isNormalUser = true;
     description = "fraxx";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
