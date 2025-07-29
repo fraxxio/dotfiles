@@ -59,11 +59,17 @@
   };
 
   virtualisation.docker = {
-    enable = false;  # Disable the system-wide Docker daemon
-
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
+    # rootless = {
+    #   enable = true;
+    #   setSocketVariable = true;
+    #   daemon.settings = {
+    #     dns = ["8.8.8.8" "1.1.1.1"];
+    #   };
+    # };
+    rootless.enable = false;
+    enable = true; 
+    daemon.settings = {
+      dns = ["8.8.8.8" "1.1.1.1"];
     };
   };
 
@@ -182,6 +188,8 @@
     gnumake
     brave
     docker_28
+    code-cursor
+    vscode
     # --- LSP ---
     lua-language-server
     nodePackages.typescript-language-server
