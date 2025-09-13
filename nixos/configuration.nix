@@ -104,7 +104,7 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
+#
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -120,10 +120,10 @@
   users.users.fraxx = {
     isNormalUser = true;
     description = "fraxx";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "render" ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      kdePackages.kcolorchooser
     ];
     shell = pkgs.zsh;
   };
@@ -225,6 +225,10 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 11434 ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
