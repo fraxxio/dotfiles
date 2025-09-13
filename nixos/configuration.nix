@@ -190,6 +190,7 @@
     docker_28
     code-cursor
     vscode
+    input-remapper
     # --- LSP ---
     lua-language-server
     nodePackages.typescript-language-server
