@@ -196,10 +196,8 @@
     clippy
     rust-analyzer
     dotnet-sdk_9
-    dotnet-runtime
-    omnisharp-roslyn
+    csharp-ls
     nuget
-    msbuild
     postgresql
     # --- LSP ---
     lua-language-server
