@@ -190,7 +190,17 @@
     docker_28
     code-cursor
     vscode
-    input-remapper
+    rustc
+    cargo
+    rustfmt
+    clippy
+    rust-analyzer
+    dotnet-sdk_9
+    dotnet-runtime
+    omnisharp-roslyn
+    nuget
+    msbuild
+    postgresql
     # --- LSP ---
     lua-language-server
     nodePackages.typescript-language-server
